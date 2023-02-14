@@ -26,24 +26,7 @@ public class Planning {
     }
 
     public Optional<Reservation> reserveQuay(UUID vesselId, DateRange timeSlot) {
-        var quays = PortInfrastructure.getQuaysId();
-        var occupiedQuays = reservations.stream()
-                .filter(reservation -> reservation.getTimeSlot().intersects(timeSlot))
-                .map(Reservation::getQuayId)
-                .collect(Collectors.toSet());
 
-        var freeQuays = quays.stream().filter(quay -> !occupiedQuays.contains(quay)).toList();
-
-        if(freeQuays.isEmpty()) {
-            return Optional.empty();
-        }
-
-        var assignedQuay = freeQuays.get(0);
-        var reservation = makeReservation(vesselId, assignedQuay, timeSlot);
-
-        this.reservations.add(reservation);
-
-        return Optional.of(reservation);
     }
 
     private Reservation makeReservation(UUID vesselId, UUID quayId, DateRange timeSlot) {

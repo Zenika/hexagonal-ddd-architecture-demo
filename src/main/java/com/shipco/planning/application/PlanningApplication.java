@@ -14,9 +14,6 @@ public class PlanningApplication {
     }
 
     public Optional<Reservation> reserveQuay(ReserveQuay reserveQuay) {
-        return planningService.reserveQuay(
-                reserveQuay.vesselId(),
-                reserveQuay.estimatedArrivalDate()
-            );
+
     }
 }

@@ -24,15 +24,7 @@ public class PlanningService {
      * Otherwise, returns an empty reservation.
      */
     public Optional<Reservation> reserveQuay(UUID vesselId, LocalDateTime estimatedArrivalDate) {
-        var planning = planningRepository.findMonthlyPlanning(Year.of(estimatedArrivalDate.getYear()), estimatedArrivalDate.getMonth());
-        var offloadingTime = offloadingDurationCalculator.calculateOffloadingDuration(vesselId);
-        var estimatedOffloadingEndDate = estimatedArrivalDate.plus(offloadingTime);
-        var timeSlot = DateRange.of(estimatedArrivalDate, estimatedOffloadingEndDate);
 
-        var reservedQuay = planning.reserveQuay(vesselId, timeSlot);
-        reservedQuay.ifPresent(r -> planningRepository.savePlanningUpdates(planning));
-
-        return reservedQuay;
     }
 
 }

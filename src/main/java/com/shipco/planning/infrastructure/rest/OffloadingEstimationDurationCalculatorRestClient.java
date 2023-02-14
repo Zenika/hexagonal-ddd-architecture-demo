@@ -8,16 +8,9 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class OffloadingEstimationDurationCalculatorRestClient implements OffloadingDurationCalculator {
-    private final RestClient restClient;
-
-    public OffloadingEstimationDurationCalculatorRestClient(RestClient restClient) {
-        this.restClient = restClient;
-    }
-
     @Override
     public Duration calculateOffloadingDuration(UUID vesselId) {
-        var durationString = restClient.get("/estimate", "vesselId", vesselId.toString());
-        return durationFromJson(durationString);
+
     }
 
     private Duration durationFromJson(String duration) {
